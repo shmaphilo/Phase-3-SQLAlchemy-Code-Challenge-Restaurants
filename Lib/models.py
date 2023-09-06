@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
 
 # Create a SQLAlchemy engine and session
-engine = create_engine('sqlite:///restaurant_reviews.db')
+engine = create_engine('sqlite:///restaurant.db')
 Session = sessionmaker(bind=engine)
 session = Session()
 
@@ -53,8 +53,8 @@ Base.metadata.create_all(engine)
 # Sample data
 restaurant1 = Restaurant(name='Restaurant A', price=3)
 restaurant2 = Restaurant(name='Restaurant B', price=2)
-customer1 = Customer(first_name='John', last_name='Doe')
-customer2 = Customer(first_name='Jane', last_name='Smith')
+customer1 = Customer(first_name='Philip', last_name='Ogaye')
+customer2 = Customer(first_name='jane', last_name='Smith')
 review1 = Review(star_rating=4, restaurant=restaurant1, customer=customer1)
 review2 = Review(star_rating=5, restaurant=restaurant1, customer=customer2)
 review3 = Review(star_rating=3, restaurant=restaurant2, customer=customer1)
@@ -69,8 +69,9 @@ restaurant = session.query(Restaurant).first()
 
 print("Customer's Reviews:")
 for review in customer.reviews:
-    print(review.full_review())
+    print(f"Rating: {review.star_rating}, Restaurant: {review.restaurant.name}")
 
 print("\nRestaurant's Reviews:")
 for review in restaurant.reviews:
-    print(review.full_review())
+    print(f"Rating: {review.star_rating}, Customer: {review.customer.first_name} {review.customer.last_name}")
+
